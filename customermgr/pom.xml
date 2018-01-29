@@ -14,7 +14,13 @@
 	<packaging>war</packaging>
 	<name>customermgr Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-
+	<dependencies>
+		<dependency>
+			<groupId>com.sishuok</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 	<build>
 		<finalName>customermgr</finalName>
 		<!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->
@@ -52,6 +58,18 @@
 						</connector>
 					</connectors>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<!--注意增加这两行，在打包时相关的类会被独立打成jar -->
+					<attachClasses>true</attachClasses>
+					<classesClassifier>api</classesClassifier>
+				</configuration>
+				<version>2.4</version>
+				<executions>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
