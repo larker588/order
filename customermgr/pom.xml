@@ -14,41 +14,45 @@
 	<packaging>war</packaging>
 	<name>customermgr Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.sishuok</groupId>
-			<artifactId>common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
+
 	<build>
 		<finalName>customermgr</finalName>
+		<!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 		<plugins>
-			<!-- jetty插件, 设定端口与context path -->
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.16.v20140903</version>
+				<version>9.3.7.v20160115</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<stopPort>9999</stopPort>
-					<webAppConfig>
-						<contextPath>/customer</contextPath>
-					</webAppConfig>
+					<webApp>
+						<contextPath>/test</contextPath>
+					</webApp>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>9090</port>
-							<maxIdleTime>60000</maxIdleTime>
+							<port>8082</port>
 						</connector>
 					</connectors>
 				</configuration>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 </project>

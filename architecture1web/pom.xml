@@ -8,6 +8,7 @@
 		<artifactId>architecture1</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+	<!-- 总的web工程 -->
 	<groupId>com.sishuok</groupId>
 	<artifactId>architecture1web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -16,14 +17,20 @@
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+			<groupId>com.sishuok</groupId>
+			<artifactId>goodsmgrweb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>com.sishuok</groupId>
-			<artifactId>goodsmgrweb</artifactId>
+			<artifactId>cartmgr</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>com.sishuok</groupId>
+			<artifactId>ordermgr</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
@@ -33,10 +40,33 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
+		<dependency>
+			<groupId>com.sishuok</groupId>
+			<artifactId>storemgr</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>architecture1web</finalName>
 		<plugins>
+			<!-- 定义jetty -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.7.v20160115</version>
+				<configuration>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/test</contextPath>
+					</webApp>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>8082</port>
+						</connector>
+					</connectors>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -50,6 +80,18 @@
 						<overlay>
 							<groupId>com.sishuok</groupId>
 							<artifactId>goodsmgrweb</artifactId>
+						</overlay>
+						<overlay>
+							<groupId>com.sishuok</groupId>
+							<artifactId>cartmgr</artifactId>
+						</overlay>
+						<overlay>
+							<groupId>com.sishuok</groupId>
+							<artifactId>ordermgr</artifactId>
+						</overlay>
+						<overlay>
+							<groupId>com.sishuok</groupId>
+							<artifactId>storemgr</artifactId>
 						</overlay>
 					</overlays>
 				</configuration>
