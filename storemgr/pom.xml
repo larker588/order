@@ -25,20 +25,49 @@
 		<finalName>storemgr</finalName>
 		<plugins>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
+				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.3.7.v20160115</version>
+				<version>9.4.8.v20171121</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<webApp>
-						<contextPath>/test</contextPath>
-					</webApp>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>8082</port>
-						</connector>
-					</connectors>
+					<stopPort>9999</stopPort>
+					<webAppConfig>
+						<contextPath>/store</contextPath>
+					</webAppConfig>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<stopPort>9899</stopPort>
+					<stopKey>foo</stopKey>
+					<stopWait>10</stopWait>
+					<systemProperties>
+						<systemProperty>
+							<name>tapestry.execution-mode</name>
+							<value>development</value>
+						</systemProperty>
+						<systemProperty>
+							<name>jetty.port</name>
+							<value>9095</value>
+						</systemProperty>
+					</systemProperties>
 				</configuration>
+				<executions>
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<daemon>true</daemon>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
